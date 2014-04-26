@@ -1,0 +1,11 @@
+Game Jam:
+
+Title: Nuclear BLU3
+
+Premise:
+	Android mech dude made by government organization to "clean up" nuclear blu3 waste
+	in caverns beneath nuclear research facility. Monsters from the waste with hazardous 
+	waste pools and other environmental obstacles. Last boss is corrupted war mech 
+	takes up most of the screen and uses projectile weapons.
+
+GitHub
