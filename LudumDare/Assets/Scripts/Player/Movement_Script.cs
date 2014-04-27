@@ -65,4 +65,10 @@ public class Movement_Script : MonoBehaviour {
 		print ("collision" + coll);
 		coll++;
 	}
+
+	void OnCollisionExit2D(Collision2D col) {
+		if (col.gameObject.CompareTag("Floor") || col.gameObject.CompareTag("Platform")) {
+			inAir = true;
+		}
+	}
 }
