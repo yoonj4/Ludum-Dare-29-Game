@@ -10,6 +10,7 @@ public class Movement_Script : MonoBehaviour {
 	bool jumped;
 	GameObject floor;
 	int coll;
+	bool inAir;
 
 	// Use this for initialization
 	void Start () {
@@ -18,6 +19,7 @@ public class Movement_Script : MonoBehaviour {
 		floor = GameObject.FindGameObjectWithTag ("Floor");
 		coll = 1;
 		fallSpeed = 0;
+		inAir = false;
 	}
 	
 	// Update is called once per frame
@@ -29,18 +31,19 @@ public class Movement_Script : MonoBehaviour {
 
 		if(Input.GetButton("Jump") && !jumped) {
 			jumped = true;
+			inAir = true;
 		}
 
 		if (jumped) {
 			jump ();
 		}
 
-		if (transform.position.y >= floor.transform.position.y && !jumped) {
+		if (inAir) {
 			transform.position += Vector3.down * fallSpeed * Time.deltaTime;
 			fallSpeed += gravity;
 		}
 
-		if (floor.transform.position.y + 0.5f >= transform.position.y) {
+		if (!inAir) {
 			fallSpeed = 0;
 			if (jumped && jumpSpeed < 0) {
 				jumped = false;
@@ -55,14 +58,11 @@ public class Movement_Script : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D(Collision2D col) {
-		if (col.collider.CompareTag ("Floor") || col.collider.CompareTag ("Platform")) {
-				floor = col.gameObject;
+		if (col.gameObject.CompareTag ("Floor") || col.gameObject.CompareTag ("Platform")) {
+			floor = col.gameObject;
+			inAir = false;
 		}
 		print ("collision" + coll);
 		coll++;
-	}
-
-	void OnCollisionExit2D(Collision2D col) {
-		floor = GameObject.FindGameObjectWithTag ("Floor");
 	}
 }
